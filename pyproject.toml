@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "todo-fun-project"
+version = "0.1.0"
+description = ""
+authors = ["artyomklg <artem0801200269@gmail.com>"]
+readme = "README.md"
+packages = [{include = "todo_fun_project"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = {extras = ["all"], version = "^0.100.0"}
+sqlalchemy = "^2.0.19"
+aiosqlite = "^0.19.0"
+python-jose = "^3.3.0"
+passlib = "^1.7.4"
+alembic = "^1.11.1"
+
+
+[tool.poetry.group.dev.dependencies]
+autopep8 = "^2.0.2"
+flake8 = "^6.0.0"
+pytest = "^7.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

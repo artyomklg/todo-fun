@@ -14,6 +14,7 @@ router = APIRouter(prefix='/tasks', tags=['tasks'])
 @router.post("")
 async def create_task(task: TaskCreate, session: AsyncSession = Depends(get_async_session)) -> Task:
     task = await TaskDAO.add(session, task)
+    await session.commit()
     return task
 
 
@@ -35,6 +36,7 @@ async def complite_task(task_id: int, session: AsyncSession = Depends(get_async_
         raise HTTPException(404)
 
     complite_task = await TaskDAO.update(session, TaskModel.id == task_id, obj_in={'complite': True})
+    await session.commit()
     return complite_task
 
 
@@ -55,6 +57,7 @@ async def update_task(task_id: int, task: TaskUpdate, session: AsyncSession = De
         raise HTTPException(404)
 
     update_task = await TaskDAO.update(session, TaskModel.id == task_id, obj_in=task)
+    await session.commit()
     return update_task
 
 
@@ -66,4 +69,5 @@ async def delete_task(task_id: int, session: AsyncSession = Depends(get_async_se
         raise HTTPException(404)
 
     await TaskDAO.delete(session, TaskModel.id == task_id)
+    await session.commit()
     return {'msg': 'Task was deleted'}
